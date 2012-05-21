@@ -1,32 +1,30 @@
-/* App Controllers */
-
 var todomvc = angular.module('todomvc', []);
 
-App.Controllers.TodoController = function($scope) {
-  $scope.todos = retrieveStore();
+var Todos = function($scope, $http) {
 
-  // Call updateStore() whenever the todos array changes.
-  $scope.$watch('todos', updateStore, true);
+  // collection
+  $scope.todos = [];
 
-  $scope.todoForms = {
-    0: "You're done!",
-    one: '{} item left',
-    other: '{} items left'
-  };
+  // read
+  $http.get('/todos').success(function(data) {
+    $scope.todos = (function() { return JSON.stringify(data) && data; })();
+  });
 
-  function retrieveStore() {
-    var store = localStorage.getItem('todo-angularjs');
-    return (store && JSON.parse(store)) || [];
-  };
-
-  function updateStore() {
+  // update
+  $scope.$watch('todos', function() {
     var isEditing = $scope.todos.filter(function(val) {
       return val.editing;
     }).length;
 
     if (!isEditing) {
-      localStorage.setItem('todo-angularjs', JSON.stringify($scope.todos));
+      $http.post('/todos', JSON.stringify($scope.todos));
     }
+  }, true);
+
+  $scope.todoForms = {
+    0: "You're done!",
+    one: '{} item left',
+    other: '{} items left'
   };
 
   $scope.addTodo = function() {

@@ -2,12 +2,11 @@
 <html ng-app="todomvc">
 <head>
   <meta charset="utf-8">
-  <title>AngularJS - TodoMVC</title>
+  <title>Todos</title>
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <div ng-controller="App.Controllers.TodoController" id="todoapp">
+  <div ng-controller="Todos" id="todoapp">
     <header>
       <h1>Todos</h1>
       <form id="todo-form" ng-submit="addTodo()">
@@ -44,8 +43,7 @@
     Credits: <a href="http://twitter.com/cburgdorf">Christoph Burgdorf</a>, <a href="http://ericbidelman.com">Eric Bidelman</a>
   </div>
 
-  <script src="js/booter.js"></script>
   <script src="js/angular.js"></script>
-  <script src="js/controllers.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
